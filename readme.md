@@ -35,9 +35,9 @@ def generate_reference_document(analyzed_text, output_filename_docx):
             p.style = 'Heading 1'
         else:
             p = doc.add_paragraph()
-            parts = re.split(r'(\*\*.*?\*\*)', line)
+            parts = re.split(r'(\\.?\\*)', line)
             for part in parts:
-                if part.startswith('**') and part.endswith('**'):
+                if part.startswith('') and part.endswith(''):
                     run = p.add_run(part[2:-2])  # Remove the ** markers
                     run.bold = True
                 else:
@@ -54,7 +54,7 @@ def check_assignment_doability(assignment_text, curriculum_text):
 
 def analyze_doability_with_prompt(assignment_text, curriculum_text):
     prompt = f"""
-Please analyze the alignment between the following assignment and the provided curriculum. Assess how closely the content of the assignment matches the topics and objectives outlined in the curriculum. Consider both direct matches and closely related content when determining alignment.
+Please analyze the alignment between the following assignment and the provided curriculum. Assess how closely the content of the assignment matches the topics and objectives outlined in the curriculum. If any content in the assignment does not directly match the curriculum, identify the underlying topic or concept and compare it to related areas in the curriculum.
 
 Assignment:
 {assignment_text}
@@ -62,7 +62,7 @@ Assignment:
 Curriculum:
 {curriculum_text}
 
-Provide a detailed analysis, including a Matching Percentage displayed in large text, and explain how the alignment was determined, highlighting any areas where content is closely related but not an exact match.
+Provide a detailed analysis, including a Matching Percentage displayed in large text. Explain how the alignment was determined, particularly noting any content that was compared based on underlying concepts rather than exact matches.
 """
     response = analyze_text_with_openai(prompt)
     match_percentage = re.search(r'\b(\d{1,3})%\b', response)
@@ -73,7 +73,8 @@ def extract_text_from_image(image):
 
 def analyze_questions_with_prompt(extracted_text):
     prompt = f"""
-Please extract and format the questions from the following images into a clean, tabular format. Ensure that only the question text is captured, without any accompanying answers or options. If there are any coding-related questions, include only the question text and examples or sample inputs or outputs relevant to the coding task.
+Please analyze the following questions extracted from an image. Provide a detailed response, explaining the concepts behind each question and offering suggestions or tips for answering them effectively.
+
 Questions:
 {extracted_text}
 """
@@ -89,14 +90,14 @@ def main():
     doability_page = st.sidebar.button("Assignment Doability Checker")
     document_page = st.sidebar.button("Reference Document Generator")
     questions_page = st.sidebar.button("Reference Document Questions")
-        
+
     if doability_page:
         st.session_state["page"] = "Doability"
     if document_page:
         st.session_state["page"] = "Document"
     if questions_page:
         st.session_state["page"] = "Questions"
-        
+
     # Default to Doability Checker if no state set
     if "page" not in st.session_state:
         st.session_state["page"] = "Doability"
@@ -157,13 +158,17 @@ Assignment Description:
 
 The reference document should include:
 
-1. **Introduction**: A brief overview of the assignment, including its purpose and goals.
+Reference Document of Assignment title name:
+
+1. Objective: A brief overview of the assignment, including its purpose and goals.
    
-2. **Step-by-Step Instructions**: A clear, sequential guide outlining the actions necessary to complete the assignment. Each step should be described in a way that is accessible to users of all skill levels but no need of codes.
+2. Step-by-Step Instructions: A clear, sequential guide outlining the actions necessary to complete the assignment. Each step should be described in a way that is accessible to users of all skill levels but no need of codes.
 
-3. **Best Practices**: Suggestions and tips for effectively completing the assignment, ensuring a high standard of work, and avoiding common mistakes.
+3. Best Practices: Suggestions and tips for effectively completing the assignment, ensuring a high standard of work, and avoiding common mistakes.
 
-4. **Submission Guidelines**: Detailed instructions on how to submit the finished assignment, including any required formats or materials.
+4. Submission Guidelines: Detailed instructions on how to submit the finished assignment, including any required formats or materials.
+
+5. Frequently Asked Questions (FAQ): Answers to common questions or issues that might arise during the assignment, providing additional clarity and support.
 """
             analyzed_text = analyze_text_with_openai(prompt)
             st.success("Text analyzed successfully!")
@@ -199,5 +204,5 @@ def reference_document_questions():
             st.success("Text analyzed successfully!")
             st.write(response)
 
-if __name__ == "__main__":
-    main()
+if _name_ == "_main_":
+    main()

@@ -4,4 +4,3 @@ openai
 pandas
 python-docx
 pytesseract
-tesseract

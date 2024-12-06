@@ -1,0 +1,6 @@
+[server]
+headless = true
+
+[global]
+# Run setup.sh after installing dependencies
+command = "sh setup.sh && streamlit run app.py"

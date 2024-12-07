@@ -75,7 +75,7 @@ def extract_text_from_file(uploaded_file):
         return None
 
 def main():
-    st.set_page_config(page_title="Document Generator & Doability Checker", layout="wide")
+    st.set_page_config(page_title="Doability checker", layout="wide")
 
     # Get the current page from URL query parameters or set it to the default page
     query_params = st.query_params

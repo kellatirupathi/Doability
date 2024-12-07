@@ -10,7 +10,6 @@ import requests
 from io import BytesIO
 
 import PyPDF2
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 # Function to check assignment doability
 def check_assignment_doability(assignment_text, curriculum_text):
     sm = difflib.SequenceMatcher(None, assignment_text, curriculum_text)

@@ -4,8 +4,6 @@ FROM python:3.12-slim
 # Install Tesseract and required dependencies
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
-    libsm6 \
-    libxext6 \
 
 # Set the working directory inside the container
 WORKDIR /app

@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     libsm6 \
     libxext6 \
-    libxrender-dev
 
 # Set the working directory inside the container
 WORKDIR /app

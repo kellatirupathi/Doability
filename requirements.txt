@@ -4,3 +4,4 @@ openai
 pandas
 python-docx
 pytesseract
+google-cloud-vision

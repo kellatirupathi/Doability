@@ -26,7 +26,7 @@ Curriculum:
 {curriculum_text}
 
 Provide a detailed analysis including:
-- **Matching Percentage**: Displayed in large text, considering both exact matches and closely related core concepts.
+- **Matching Percentage**: Displayed in large text, considering only exact matches.
 - **Short Bullet Points**:
   - List of **exact matches** between the assignment and curriculum (concepts, topics, skills).
   - List of **closely related content**: Topics from the assignment that are not explicitly covered in the curriculum but are relevant based on the curriculum's scope.
